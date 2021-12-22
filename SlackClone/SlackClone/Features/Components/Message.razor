@@ -4,7 +4,17 @@
             <strong>@Details.PostedBy</strong>
             <span>@Details.PostedOn</span>
         </div>
+        <div>
         <span>@Details.Message</span>
+        </div>
+        <div @onclick:stopPropagation="true" @onmouseover:stopPropagation="true">
+            @foreach((string reaction, int count) in Details.Reactions)
+            {
+                string countText = count == 0 ? "" : count.ToString();
+                <span class=@reaction @onclick="() => IconClicked(reaction)">@countText&nbsp;</span>
+            }
+
+        </div>
     </div>
 </div>
 
@@ -12,5 +22,10 @@
 
     [Parameter]
     public SlackMessage Details { get; set; }
+
+    void IconClicked(string icon)
+    {
+        Details.Reactions[icon]++;
+    }
 
 }
