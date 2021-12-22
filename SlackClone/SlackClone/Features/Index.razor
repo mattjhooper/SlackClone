@@ -1,0 +1,26 @@
+﻿@page "/slack"
+
+@foreach (var message in messages)
+{
+    <Message details="@message"/>
+}
+
+@code {
+
+    private List<SlackMessage> messages;
+
+    protected override void OnInitialized()
+    {
+        messages = new List<SlackMessage> {
+            new SlackMessage{
+                Message = "Hello",
+                PostedBy = "Bob",
+                PostedOn = DateTime.Now},
+
+            new SlackMessage{
+                Message = "How are things?",
+                PostedBy = "Alice",
+                PostedOn = DateTime.Now},
+        };
+    }
+}
